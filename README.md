@@ -2,7 +2,7 @@
 
 ## State Management using Zustand.
 
-Practice on Simple State Management using the Redux alternative, Zustand.
+Practice on Simple State Management using the Redux alternative, Zustand (pronounced as "Tsu-shtand").
 
 ## Authors
 

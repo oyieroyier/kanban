@@ -15,8 +15,19 @@ const Column = ({ state }) => {
 		store.tasks.filter((task) => task.state === state, shallow)
 	);
 
+	const draggedTask = useStore((store) => store.draggedTask);
+	const setDraggedTask = useStore((store) => store.setDraggedTask);
+	const moveTask = useStore((store) => store.moveTask);
+
 	return (
-		<div className="column">
+		<div
+			className="column"
+			onDragOver={(e) => e.preventDefault()}
+			onDrop={(e) => {
+				setDraggedTask(null);
+				moveTask(draggedTask, state);
+			}}
+		>
 			<div className="title-wrapper">
 				<p>{state}</p>
 				<button
@@ -32,7 +43,7 @@ const Column = ({ state }) => {
 			))}
 			{open && (
 				<div className="modal">
-					<h4>{ tasks.state }</h4>
+					<h4>{tasks.state}</h4>
 					<div className="modal-content">
 						<input
 							type="text"
