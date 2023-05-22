@@ -1,13 +1,18 @@
 import { shallow } from 'zustand/shallow';
 import { useStore } from '../../store/store';
+import { useThemes } from '../../store/themes';
 import Task from '../task/Task';
 import './Column.css';
 import { FaPlus } from 'react-icons/fa';
 import { useState } from 'react';
+import classNames from 'classnames';
 
 const Column = ({ state }) => {
 	const [text, setText] = useState('');
 	const [open, setOpen] = useState(false);
+	const [drop, setDrop] = useState(false);
+
+	const backgroundColor = useThemes((theme) => theme.background);
 
 	const addTask = useStore((store) => store.addTask);
 
@@ -21,9 +26,38 @@ const Column = ({ state }) => {
 
 	return (
 		<div
-			className="column"
-			onDragOver={(e) => e.preventDefault()}
+			className={classNames('column', { drop: drop })}
+			style={{
+				background:
+					state === 'PLANNED'
+						? backgroundColor.PLANNED
+						: state === 'ONGOING'
+						? backgroundColor.ONGOING
+						: backgroundColor.DONE,
+			}}
+			onDragOver={(e) => {
+				setDrop(true);
+				e.preventDefault();
+			}}
+			onTouchMove={(e) => {
+				setDrop(true);
+				e.preventDefault();
+			}}
+			onDragLeave={(e) => {
+				setDrop(false);
+				e.preventDefault();
+			}}
+			// onTouchCancel={(e) => {
+			// 	setDrop(false);
+			// 	e.preventDefault();
+			// }}
 			onDrop={(e) => {
+				setDrop(false);
+				setDraggedTask(null);
+				moveTask(draggedTask, state);
+			}}
+			onTouchEnd={(e) => {
+				setDrop(false);
 				setDraggedTask(null);
 				moveTask(draggedTask, state);
 			}}
@@ -43,22 +77,27 @@ const Column = ({ state }) => {
 			))}
 			{open && (
 				<div className="modal">
-					<h4>{tasks.state}</h4>
 					<div className="modal-content">
-						<input
-							type="text"
-							onChange={(e) => setText(e.target.value)}
-							value={text}
-						/>
-						<button
-							onClick={() => {
-								addTask(text, state);
-								setText('');
-								setOpen(false);
-							}}
-						>
-							Submit
-						</button>
+						<div className="modal-content-top">
+							<p>Add a new task</p>
+							<button onClick={() => setOpen(false)}>❌</button>
+						</div>
+						<form onSubmit={(e) => e.preventDefault()}>
+							<textarea
+								type="text"
+								onChange={(e) => setText(e.target.value)}
+								value={text}
+							/>
+							<button
+								onClick={() => {
+									addTask(text, state);
+									setText('');
+									setOpen(false);
+								}}
+							>
+								Add Task
+							</button>
+						</form>
 					</div>
 				</div>
 			)}

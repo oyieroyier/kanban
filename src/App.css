@@ -1,7 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Kanit:wght@600&display=swap');
+
 .App {
 	background: var(--COLOR-GRAY);
 	min-height: 100vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+@media (max-width: 480px) {
+	.App{
+		flex-direction: column;
+		gap: 1rem;
+	}
 }

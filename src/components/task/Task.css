@@ -9,30 +9,39 @@
 	justify-content: space-between;
 	margin-bottom: 1rem;
 	cursor: move;
+	word-wrap: break-word;
 }
 
+.task-title {
+	font-family: 'Gochi Hand', cursive;
+}
 .bottom-wrapper {
 	display: flex;
 	justify-content: space-between;
 }
 .status {
-	font-size: small;
-	background-color: var(--COLOR-GRAY-LIGHT);
+	/* font-size: small; */
+	/* background-color: var(--COLOR-GRAY-LIGHT); */
 	padding: 0.25rem;
 	border-radius: 4px;
 }
 
-.PLANNED {
-	background-color: var(--COLOR-GRAY-LIGHT);
-}
-.ONGOING {
-	background-color: var(--COLOR-ONGOING);
-}
-.DONE {
-		background-color: var(--COLOR-DONE);
 
+.ONGOING {
+	background-color: #fff;
+	height: 29.97px;
+	width: 29.5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
-.delete-btn{
+
+.ONGOING img {
+	height: 15px;
+	width: 30px;
+}
+
+.delete-btn {
 	cursor: pointer;
 	font-size: 1.5rem;
 }
