@@ -47,10 +47,6 @@ const Column = ({ state }) => {
 				setDrop(false);
 				e.preventDefault();
 			}}
-			// onTouchCancel={(e) => {
-			// 	setDrop(false);
-			// 	e.preventDefault();
-			// }}
 			onDrop={(e) => {
 				setDrop(false);
 				setDraggedTask(null);
